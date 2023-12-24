@@ -24,7 +24,7 @@ RANDOM_SEED = 20211206
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 # device = torch.device("mps")
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 data_path = "./train.csv"
 df = pd.read_csv(data_path)
 # df = df.drop_duplicates(subset=['label', 'review'], keep='first')
@@ -104,7 +104,7 @@ class SentimentClassifier(nn.Module):
         output = self.drop(output['pooler_output'])
         return self.out(output)
 
-model = SentimentClassifier(n_classes=25)
+model = SentimentClassifier(n_classes=34)
 model = model.to(device)
 
 EPOCHS = 5
